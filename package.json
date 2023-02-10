@@ -16,7 +16,7 @@
     "wait-on": "^7.0.1",
     "web-vitals": "^2.1.4"
   },
-  "main": "public/main.js",
+  "main": "electron/main.js",
   "homepage": "./",
   "scripts": {
     "start": "react-scripts start",

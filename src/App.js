@@ -1,23 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
-
+// const {desktopCapturer} = window.require("electron")
 function App() {
+
+  const getSources = ()=>{
+    console.log("hello");
+    console.log(window.desktopCapture)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={getSources}>Show Sources</button>
     </div>
   );
 }
