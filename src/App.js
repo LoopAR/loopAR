@@ -1,14 +1,11 @@
-// const {desktopCapturer} = window.require("electron")
+const handleClick = async ()=>{
+  await window.electronAPI.get_screens();
+}
+
 function App() {
-
-  const getSources = ()=>{
-    console.log("hello");
-    console.log(window.desktopCapture)
-  }
-
   return (
     <div className="App">
-      <button onClick={getSources}>Show Sources</button>
+      <button onClick={handleClick}>Get Data</button>
     </div>
   );
 }
