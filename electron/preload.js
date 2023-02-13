@@ -1,5 +1,5 @@
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require("electron");
 
-contextBridge.exposeInMainWorld('electronAPI', {
-    get_screens: () => ipcRenderer.invoke('get_screens')
-})
+contextBridge.exposeInMainWorld("electronAPI", {
+  get_screens: () => ipcRenderer.invoke("get_screens"),
+});
