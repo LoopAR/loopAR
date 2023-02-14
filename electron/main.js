@@ -19,6 +19,9 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow();
   ipcMain.handle(channels.GET_SCREENS, get_screens);
+  ipcMain.handle('record_audio', (event, sourceId)=>{
+    record_audio(sourceId)
+  })
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
@@ -39,6 +42,9 @@ async function get_screens() {
     types: ["window", "screen"],
   });
   for (source of inputSources) {
-    console.log(source.name);
+    console.log(source.id);
   }
+  return inputSources;
 }
+
+
