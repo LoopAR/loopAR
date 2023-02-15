@@ -12,16 +12,16 @@ const createWindow = () => {
       preload: path.join(__dirname, "preload.js"),
     },
   });
-
+  // ipcMain.handle("record_audio", (event, sourceId)=>{
+  //   record_audio(sourceId)
+  // })
   win.loadURL("http://localhost:3000");
 };
 
 app.whenReady().then(() => {
   createWindow();
   ipcMain.handle(channels.GET_SCREENS, get_screens);
-  ipcMain.handle('record_audio', (event, sourceId)=>{
-    record_audio(sourceId)
-  })
+  
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
@@ -48,3 +48,21 @@ async function get_screens() {
 }
 
 
+// async function record_audio(sourceId){
+//   try {
+//     console.log(sourceId)
+//     const stream = await global.navigator.mediaDevices.getUserMedia({
+//       audio: {
+//         mandatory: {
+//           chromeMediaSource: 'desktop',
+//           chromeMediaSourceId: sourceId,
+//         }
+//       },
+//       video: false
+     
+//     })
+//     console.log(stream)
+//   } catch (e) {
+//     console.log(e)
+//   }
+// }
