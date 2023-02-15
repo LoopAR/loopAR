@@ -21,7 +21,7 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow();
   ipcMain.handle(channels.GET_SCREENS, get_screens);
-  
+
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
@@ -38,15 +38,43 @@ app.on("window-all-closed", () => {
 // In the main process.
 
 async function get_screens() {
-  const inputSources = await desktopCapturer.getSources({
-    types: ["window", "screen"],
-  });
-  for (source of inputSources) {
-    console.log(source.id);
-  }
-  return inputSources;
-}
+  // const inputSources = await desktopCapturer.getSources({
+  //   types: ["window", "screen"],
+  //   thumbnailSize: {
+  //     height: 90,
+  //     width: 150,
+  //   },
+  //   fetchWindowIcons: true,
+  // });
+  // for (source of inputSources) {
+  //   console.log(source);
+  // }
+  // return inputSources;
 
+  return new Promise((resolve, reject) => {
+    desktopCapturer
+      .getSources({
+        types: ["window", "screen"],
+        thumbnailSize: {
+          height: 90,
+          width: 150,
+        },
+        fetchWindowIcons: true,
+      })
+      .then((sources) => {
+        return resolve(
+          sources.map((source) => {
+            return {
+              id: source.id,
+              name: source.name,
+              url: source.thumbnail.toDataURL(),
+              allData: source,
+            };
+          })
+        );
+      });
+  });
+}
 
 // async function record_audio(sourceId){
 //   try {
@@ -59,7 +87,7 @@ async function get_screens() {
 //         }
 //       },
 //       video: false
-     
+
 //     })
 //     console.log(stream)
 //   } catch (e) {
