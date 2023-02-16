@@ -5,31 +5,42 @@ function App() {
   const [icon, setIcon] = useState("");
 
   const handleClick = async () => {
-    const inputSources = await window.electronAPI.get_screens();
+    let inputSources = await window.electronAPI.get_screens();
     const tempSources = [];
-    // for (const source of inputSources) {
-    //   tempSources.push(source);
-    // }
-    setScreens(inputSources);
-    console.log(inputSources[1].allData.appIcon.toDataURL());
+    for (const source of inputSources) {
+      tempSources.push(source);
+    }
+    setScreens(tempSources);
+    console.log(screens);
+    // console.log(inputSources[1].allData.thumbnail.toDataURL());
   };
   return (
     <div className="App">
-      <button onClick={handleClick}>Get Data</button>
+      <button onClick={() => handleClick()}>Get Data</button>
       {screens.map((val, i) => {
         return (
           <img
             key={val.id}
             onClick={() => {
               window.electronAPI.record_audio(val.id);
-              console.log(val.thumbnail.toDataURL());
+              // console.log(val.thumbnail.toDataURL());
             }}
-            src={val.thumbnail?.toDataURL}
+            // src={val?.url}
+            src={val?.appIcon}
           />
+          // <p
+          //   key={val.id}
+          //   onClick={() => {
+          //     window.electronAPI.record_audio(val.id);
+          //     // console.log(val.thumbnail.toDataURL());
+          //   }}
+          // >
+          //   {val.name}
+          // </p>
         );
       })}
 
-      <img src={screens[3]?.url} />
+      {/* <img src={screens[1]?.url} /> */}
     </div>
   );
 }

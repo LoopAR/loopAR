@@ -62,16 +62,22 @@ async function get_screens() {
         fetchWindowIcons: true,
       })
       .then((sources) => {
+        console.log(sources.length);
         return resolve(
           sources.map((source) => {
+            console.log(source.id);
             return {
               id: source.id,
               name: source.name,
               url: source.thumbnail.toDataURL(),
               allData: source,
+              appIcon: source.appIcon?.toDataURL(),
             };
           })
         );
+      })
+      .catch((err) => {
+        return err;
       });
   });
 }
